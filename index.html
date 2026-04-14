@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HBD Alishba Irfan | Exclusive by ZuCode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff477e;
+            --accent: #ffdf85;
+            --zucode: #00d2ff;
+            --bg-dark: #0f0c29;
+        }
+
+        /* Android Performance & Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #8e1e55);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* Brand Label */
+        .brand-header {
+            position: fixed; top: 15px; width: 100%; text-align: center;
+            font-size: 0.7rem; letter-spacing: 4px; font-weight: 600;
+            color: var(--zucode); opacity: 0.8; z-index: 100;
+            text-transform: uppercase;
+        }
+
+        .container { width: 100%; max-width: 420px; padding: 20px; text-align: center; z-index: 10; }
+
+        .stage { display: none; }
+        .stage.active { display: block; animation: zoomIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
+        /* --- THE AVATAR FIX (NO CROPPING) --- */
+        .avatar-frame {
+            width: 160px; height: 160px;
+            margin: 0 auto 25px auto;
+            border-radius: 50%;
+            border: 4px solid var(--zucode);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.5);
+            
+            /* Background method ensures image fits dead-center */
+            background-image: url('alishba.jpg'); 
+            background-position: center center;
+            background-size: contain; /* Isse aapki wide image nahi kategi */
+            background-repeat: no-repeat;
+            background-color: #1a1a1a;
+            position: relative;
+        }
+
+        /* Stage 1: Gift */
+        .gift-box {
+            width: 150px; height: 130px; background: #ff4d4d; margin: 40px auto;
+            border-radius: 12px; position: relative; cursor: pointer;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+        .gift-lid {
+            position: absolute; top: -18px; left: -10px; width: 170px; height: 40px;
+            background: #cc0000; border-radius: 8px; transition: 0.4s;
+        }
+        .gift-box:hover .gift-lid { transform: translateY(-10px) rotate(-5deg); }
+
+        /* Stage 2: Cake */
+        .cake-wrapper { width: 220px; margin: 0 auto; cursor: pointer; transition: 0.5s; }
+        .cut .cake-wrapper { transform: scale(0); opacity: 0; }
+
+        /* Stage 3: Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-radius: 35px; padding: 40px 20px; border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        .btn-zucode {
+            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            border: none; padding: 15px 35px; color: #fff; border-radius: 50px;
+            font-weight: 600; cursor: pointer; margin-top: 25px; width: 100%;
+            box-shadow: 0 8px 20px rgba(0, 210, 255, 0.3); text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px;
+        }
+        .modal-content {
+            background: #111; padding: 35px 25px; border-radius: 30px;
+            border: 1px solid var(--zucode); max-width: 450px; max-height: 85vh; overflow-y: auto;
+        }
+        .modal-content h2 { font-family: 'Dancing Script', cursive; color: var(--accent); font-size: 2.5rem; margin-bottom: 20px; text-align: center; }
+        .modal-content p { line-height: 1.8; font-size: 1.05rem; color: #eee; text-align: left; }
+
+        .confetti { position: absolute; pointer-events: none; animation: fall 3s linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="brand-header">Produced by ZuCode</div>
+
+    <div class="container">
+        
+        <div id="stage-gift" class="stage active">
+            <h2 style="font-weight: 300; letter-spacing: 3px; margin-bottom: 20px;">HELLO ALISHBA IRFAN! ✨</h2>
+            <div class="gift-box" onclick="nextStage('stage-gift', 'stage-cake')">
+                <div class="gift-lid"></div>
+                <div style="position: absolute; left: 50%; width: 20px; height: 100%; background: var(--accent); transform: translateX(-50%);"></div>
+            </div>
+            <p style="opacity: 0.6;">Tap the gift box for a surprise...</p>
+        </div>
+
+        <div id="stage-cake" class="stage">
+            <h2 style="font-family: 'Dancing Script'; font-size: 2.8rem; color: var(--accent); margin-bottom: 20px;">Make a Wish! 🎂</h2>
+            <div class="cake-wrapper" id="cakeWrap" onclick="cutCake()">
+                <svg viewBox="0 0 200 200">
+                    <circle cx="100" cy="150" r="70" fill="#61184c" />
+                    <rect x="50" y="105" width="100" height="45" fill="#8e1e55" rx="5" />
+                    <rect x="65" y="75" width="70" height="30" fill="#ff758c" rx="5" />
+                    <rect x="96" y="45" width="8" height="30" fill="#ffd700" rx="2" />
+                    <circle cx="100" cy="35" r="8" fill="#ff4d4d"><animate attributeName="opacity" values="1;0.4;1" dur="0.8s" repeatCount="indefinite" /></circle>
+                </svg>
+            </div>
+            <p style="margin-top: 20px; font-weight: 600; color: var(--zucode);">TAP TO CUT! 🔪</p>
+        </div>
+
+        <div id="stage-card" class="stage">
+            <div class="glass-card">
+                <div class="avatar-frame"></div>
+                
+                <p style="font-size: 0.7rem; color: var(--zucode); font-weight: 600; letter-spacing: 2px; margin-bottom: 5px;">ZUCODE PRODUCTIONS</p>
+                <h1 style="font-size: 3rem; margin-bottom: 10px;">Happy Birthday!</h1>
+                <p style="color: var(--accent); font-size: 1.3rem;">Alishba Irfan ❤️</p>
+                <p style="margin-top: 15px; opacity: 0.7; font-size: 0.8rem; font-style: italic;">"16th April — A special day for a special bestie."</p>
+                
+                <button class="btn-zucode" onclick="showModal()">Read My Heart 💌</button>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.6rem; opacity: 0.4;">© 2026 ZUCODE | DESIGNED BY RANA ZUBAIR</p>
+        </div>
+
+    </div>
+
+    <div class="modal" id="msgModal">
+        <div class="modal-content">
+            <h2>Meri Shazadi Bestie... ❤️</h2>
+            <p>
+                <b>Happy Birthday Alishba Irfan! 🎉</b><br><br>
+                Main janta hoon main tumhare liye koi bohot bari cheez nahi hoon, lekin ye surprise sirf tumhare liye hai. Pata hai main bohot tang karta hoon, lekin tum jaisi bestie milna sach mein blessing hai! <br><br>
+                Meri madam, <b>Basit bhai ki bachi</b>... suno! Gift-wift mangne ki koshish bhi mat karna beta, filhaal paise waise nahi hain. Hote bhi toh nahi deta, you know kanjoosi on tOp! 😂 (MAZAAK MAZAAK BHAIII). <br><br>
+                Bas ye samajh lo ke main hi tumhara sabse bara gift hoon aur ye website mera special tohfa hai! Haan haan bhai, pata hai is website ko tum khaa pee nahi sakti, lekin ye hamesha live rahegi tumhare liye. <br><br>
+                <b>Meri Dua:</b> Allah tumhein hamesha khush rakhe, har dukh se door rakhe. Allah tumhein lambi zindagi de aur tumhari har jayez khwahish poori ho. Basit bhai ke sath tumhari jori hamesha salamat rahe (Ameen!). <br><br>
+                Stay blessed, stay cute (par thoda kam!), aur thoda kam <b>'Nalli'</b> bana karo! 😂 <br><br>
+                Always here for you, <b>Just Huqum Chala Request na karr!</b><br><br>
+                <span style="color:var(--zucode)"><b>— Rana Zubair (ZuCode)</b></span>
+            </p>
+            <button class="btn-zucode" onclick="closeModal()" style="background: transparent; border: 1px solid var(--zucode);">Close with Love</button>
+        </div>
+    </div>
+
+    <script>
+        function nextStage(current, next) {
+            triggerConfetti();
+            document.getElementById(current).classList.remove('active');
+            setTimeout(() => { document.getElementById(next).classList.add('active'); }, 400);
+        }
+
+        function cutCake() {
+            document.getElementById('cakeWrap').classList.add('cut');
+            triggerConfetti();
+            setTimeout(() => { nextStage('stage-cake', 'stage-card'); }, 800);
+        }
+
+        function showModal() { document.getElementById('msgModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('msgModal').style.display = 'none'; }
+
+        function triggerConfetti() {
+            for(let i=0; i<40; i++) {
+                const c = document.createElement('div');
+                c.className = 'confetti';
+                c.innerHTML = ['✨','💖','🎈','🎉','🎂'][Math.floor(Math.random()*5)];
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.top = '-20px';
+                c.style.fontSize = Math.random() * 20 + 15 + 'px';
+                c.style.animationDuration = Math.random() * 2 + 1.5 + 's';
+                document.body.appendChild(c);
+                setTimeout(() => c.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>
